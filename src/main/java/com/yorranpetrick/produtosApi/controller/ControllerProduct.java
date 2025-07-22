@@ -4,6 +4,7 @@ import com.yorranpetrick.produtosApi.models.Product;
 import com.yorranpetrick.produtosApi.repository.ProdutoRepository;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.UUID;
 
 @RestController
@@ -53,6 +54,11 @@ public class ControllerProduct {
             produtoRepository.save(newProduct);
         }
         else System.out.println("Produto Não encontrado para a atualização");
+    }
+
+    @GetMapping
+    public List<Product> researchListProduct(@RequestParam("name") String name){
+        return produtoRepository.findByName(name);
     }
 
 }
