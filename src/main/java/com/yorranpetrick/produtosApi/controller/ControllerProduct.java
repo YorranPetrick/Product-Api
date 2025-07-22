@@ -30,4 +30,29 @@ public class ControllerProduct {
         return product;
     }
 
+
+    @RequestMapping(value = "/deleteProduct/{id}", method = RequestMethod.DELETE)
+    public void deleteProductId(@PathVariable("id") String id){
+        var product = researchProductId(id);
+        if (product != null) produtoRepository.delete(product);
+        else System.out.println("Produto não encontrado");
+        }
+
+    /*
+    @DeleteMapping("/deleteProduct/{id}")
+    public void deleteProduct(@PathVariable("id") String id){
+        produtoRepository.deleteById(id);
+        System.out.println("Produto Deletado");
+    }*/
+
+    @PutMapping("/updateProduct/{id}")
+    public void updateProduct(@PathVariable("id") String id, @RequestBody Product newProduct){
+        var product = researchProductId(id);
+        if (product != null){
+            newProduct.setId(id);
+            produtoRepository.save(newProduct);
+        }
+        else System.out.println("Produto Não encontrado para a atualização");
+    }
+
 }
